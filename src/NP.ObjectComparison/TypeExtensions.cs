@@ -10,8 +10,8 @@ namespace NP.ObjectComparison
 	/// </summary>
 	public static class TypeExtensions
 	{
-		private static Type _IEnumerable = typeof(IEnumerable);
-		private static Type _GenericIEnumerable = typeof(IEnumerable<>);
+		private static readonly Type _iEnumerable = typeof(IEnumerable);
+		private static readonly Type _genericIEnumerable = typeof(IEnumerable<>);
 
 		/// <summary>
 		/// Is the <paramref name="type"/> a collection type.
@@ -21,8 +21,8 @@ namespace NP.ObjectComparison
 		public static bool IsCollectionType(this Type type)
 		{
 			return type != typeof(string)
-				   && (_GenericIEnumerable.IsAssignableFrom(type)
-					   || _IEnumerable.IsAssignableFrom(type));
+				   && (_genericIEnumerable.IsAssignableFrom(type)
+					   || _iEnumerable.IsAssignableFrom(type));
 		}
 
 		/// <summary>
@@ -42,10 +42,10 @@ namespace NP.ObjectComparison
 				if (type.IsGenericType)
 				{
 					var enumerableInterface = type.GetInterfaces()
-						.First(interfaceType => interfaceType == _IEnumerable
+						.First(interfaceType => interfaceType == _iEnumerable
 												|| (interfaceType.IsGenericType
 													&& interfaceType.GetGenericTypeDefinition() ==
-													_GenericIEnumerable));
+													_genericIEnumerable));
 					if (enumerableInterface.IsGenericType)
 					{
 						return enumerableInterface.GetGenericArguments()[0];
