@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace NP.ObjectComparison.Tests.Mocks
 {
@@ -15,6 +16,7 @@ namespace NP.ObjectComparison.Tests.Mocks
 		public TestObject FifthProperty { get; set; }
 		public object Clone()
 		{
+			
 			return new TestObject
 			{
 				FirstProperty = FirstProperty,
@@ -64,5 +66,8 @@ namespace NP.ObjectComparison.Tests.Mocks
 		{
 			return HashCode.Combine(FirstProperty, SecondProperty, ThirdProperty, FourthProperty, FifthProperty);
 		}
+
+		public event PropertyChangingEventHandler PropertyChanging;
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
